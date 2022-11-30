@@ -14,16 +14,16 @@ toc: true
 Faveo can run on [CentOS-8-Stream ](https://www.centos.org/download/).
 
 - [<strong>Installation steps:</strong>](#installation-steps)
-    - [<strong>1.LAMP Installation</strong>](#1lamp-installation)
-    - [<strong>2.Update your Packages and install some utility tools</strong>](#2update-your-packages-and-install-some-utility-tools)
-    - [<strong>3.Upload Faveo</strong>](#3upload-faveo)
-    - [<strong>4.Setup the database</strong>](#4setup-the-database)
-    - [<strong>5.Configure Apache webserver</strong>](#5configure-apache-webserver)
-    - [<strong>6.Configure cron job</strong>](#6configure-cron-job)
-    - [<strong>7.Redis Installation</strong>](#7redis-installation)
-    - [<strong>8.SSL Installation</strong>](#8ssl-installation)
-    - [<strong>9.Install Faveo</strong>](#9install-faveo)
-    - [<strong>10.Final step</strong>](#10final-step)
+    - [<strong>1. LAMP Installation</strong>](#1lamp-installation)
+    - [<strong>2. Update your Packages and install some utility tools</strong>](#2update-your-packages-and-install-some-utility-tools)
+    - [<strong>3. Upload Faveo</strong>](#3upload-faveo)
+    - [<strong>4. Setup the database</strong>](#4setup-the-database)
+    - [<strong>5. Configure Apache webserver</strong>](#5configure-apache-webserver)
+    - [<strong>6. Configure cron job</strong>](#6configure-cron-job)
+    - [<strong>7. Redis Installation</strong>](#7redis-installation)
+    - [<strong>8. SSL Installation</strong>](#8ssl-installation)
+    - [<strong>9. Install Faveo</strong>](#9install-faveo)
+    - [<strong>10. Final step</strong>](#10final-step)
 
 
 
@@ -35,20 +35,20 @@ Faveo can run on [CentOS-8-Stream ](https://www.centos.org/download/).
 Faveo depends on the following:
 
 -   **Apache** (with mod_rewrite enabled) 
--   **PHP 7.3+** with the following extensions: curl, dom, gd, json, mbstring, openssl, pdo_mysql, tokenizer, zip
+-   **PHP 7.3+** with the following extensions: curl, dom, gd, JSON, mbstring, OpenSSL, pdo_mysql, tokenizer, zip
 -   **MySQL 8.0+** or **MariaDB 10.6+**
--   **SSL** ,Trusted CA Signed or Slef-Signed SSL
+-   **SSL**- Trusted CA Signed or Slef-Signed SSL
 
 <a id="1lamp-installation" name="1lamp-installation"></a>
 
-### <strong>1.LAMP Installation</strong>
+### <strong>1. LAMP Installation</strong>
 
 Follow the [instructions here](https://github.com/teddysun/lamp)
-If you follow this step, no need to install Apache, PHP, MySQL separetely as listed below
+If you follow this step, no need to install Apache, PHP, and MySQL separately as listed below:
 
 <a id="2update-your-packages-and-install-some-utility-tools" name="2update-your-packages-and-install-some-utility-tools"></a>
 
-### <strong>2.Update your Packages and install some utility tools</strong>
+### <strong>2. Update your Packages and install some utility tools</strong>
 
 Login as root user by typing the command below
 
@@ -100,9 +100,9 @@ sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php.ini
 The official Faveo installation uses Mysql as the database system and **this is the only official system we support**. While Laravel technically supports PostgreSQL and SQLite, we can't guarantee that it will work fine with Faveo as we've never tested it. Feel free to read [Laravel's documentation](https://laravel.com/docs/database#configuration) on that topic if you feel adventurous.
 
 Note: Currently Faveo supports only Mysql-8.0 and MariaDB-10.6.
-Note: The below steps only installs the package, but does not setup the database required by Faveo. This is done later in the instructions.
+Note: The below steps only install the package, but do not set up the database required by Faveo. This is done later in the instructions.
 
-In CentOS-8-Stream mariadb-server-10.6 is available from the default Repo's.So instead of downloading and adding other Repos you could simply install MariadDB-10.6 by running the following commands.
+In CentOS-8-Stream mariadb-server-10.6 is available from the default Repo’s. So, instead of downloading and adding other Repos, you could simply install MariaDB-10.6 by running the following commands.
 
 ```sh
 curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
@@ -120,8 +120,7 @@ Secure your MySql installation by executing the below command. Set Password for 
 mysql_secure_installation 
 ```
 
-**phpMyAdmin(Optional):** Install phpMyAdmin. This is optional step. phpMyAdmin gives a GUI to access and work with Database
-
+**phpMyAdmin(Optional):** Install phpMyAdmin. Install phpMyAdmin. This is an optional step. phpMyAdmin gives a GUI to access and work with the Database.
 ```sh
 yum install -y phpmyadmin
 ```
@@ -131,14 +130,14 @@ yum clean all
 ```
 
 
-Once the softwares above are installed:
+Once the software above is installed
 
 
 <a id="3upload-faveo" name="3upload-faveo"></a>
 
-### <strong>3.Upload Faveo</strong>
+### <strong>3. Upload Faveo</strong>
 
-Please download Faveo Helpdesk from [https://billing.faveohelpdesk.com](https://billing.faveohelpdesk.com) and upload it to below directory
+Please download Faveo Helpdesk from [https://billing.faveohelpdesk.com](https://billing.faveohelpdesk.com) and upload it to the below directory
 
 ```sh
 mkdir -p /var/www/faveo/
@@ -151,9 +150,9 @@ unzip "Filename.zip" -d /var/www/faveo
 ```
 <a id="4setup-the-database" name="4setup-the-database"></a>
 
-### <strong>4.Setup the database</strong>
+### <strong>4. Setup the database</strong>
 
-Log in with the root account to configure the database.
+Login with the root account to configure the database.
 
 ```sh
 mysql -u root -p
@@ -171,13 +170,13 @@ Create a user called 'faveo' and its password 'strongpassword'.
 CREATE USER 'faveo'@'localhost' IDENTIFIED BY 'strongpassword';
 ```
 
-We have to authorize the new user on the faveo db so that he is allowed to change the database.
+We have to authorize the new user on the faveo DB so that he is allowed to change the database.
 
 ```sql
 GRANT ALL ON faveo.* TO 'faveo'@'localhost';
 ```
 
-And finally we apply the changes and exit the database.
+And, finally we apply the changes and exit the database.
 
 ```sql
 FLUSH PRIVILEGES;
@@ -186,7 +185,7 @@ exit
 
 <a id="5configure-apache-webserver" name="5configure-apache-webserver"></a>
 
-### <strong>5.Configure Apache webserver</strong>
+### <strong>5. Configure Apache webserver</strong>
 
 **5.a.** <b>Give proper permissions to the project directory by running:</b>
 
@@ -196,15 +195,15 @@ cd /var/www/faveo
 find . -type f -exec chmod 644 {} \;
 find . -type d -exec chmod 755 {} \;
 ```
-By default SELINUX will be Enforcing run the follwing comand to switch it to Permissive mode and restart the machine once in order to take effect.
+By default, SELinux will be Enforcing running the following command to switch it to Permissive mode and restart the machine once in order to take effect.
 ```sh
 sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 reboot -f
 ```
 
-**5.b.** <b>Enable the rewrite module of the Apache webserver:</b>
+**5.b.** <b>Enable the rewrite module of the Apache web server:</b>
 
-Check whether the Module exists in Apache modules directory.
+Check whether the Module exists in the Apache modules directory.
 
 ```sh
 ls /etc/httpd/modules | grep mod_rewrite
@@ -213,7 +212,7 @@ Check if the module is loaded
 ```sh
 grep -i LoadModule /etc/httpd/conf/httpd.conf | grep rewrite
 ```
-If the output af the above command is blank then add the below line in /etc/httpd/conf/httpd.conf
+If the output of the above command is blank then add the below line in /etc/httpd/conf/httpd.conf
 
 ```sh
 LoadModule rewrite_module modules/mod_rewrite.so
@@ -230,9 +229,9 @@ Finally disable Directory Browsing on Apache, edit the httpd.conf and change Opt
 </Directory>
 ```
 
-**5.c.** <b>Configure a new faveo site in apache by doing:</b>
+**5.c.** <b>Configure a new faveo site in apache by doing this:</b>
 
-Pick a editor of your choice copy the following and replace '--DOMAINNAME--' with the Domain name mapped to your Server's IP or you can just comment the 'ServerName' directive if Faveo is the only website served by your server.
+Pick an editor of your choiceand copy the following and replace '--DOMAINNAME--' with the Domain name mapped to your Server's IP or you can just comment the 'ServerName' directive if Faveo is the only website served by your server.
 ```sh
 nano /etc/httpd/conf.d/faveo.conf
 ```
@@ -261,11 +260,11 @@ systemctl restart httpd.service
 
 <a id="6configure-cron-job" name="6configure-cron-job"></a>
 
-### <strong>6.Configure cron job</strong>
+### <strong>6. Configure cron job</strong>
 
 Faveo requires some background processes to continuously run. 
-Basically those crons are needed to receive emails
-To do this, setup a cron that runs every minute that triggers the following command `php artisan schedule:run`. Verify your php ececutable location and replace it accordingly in the below command.
+Basically, those crons are needed to receive emails To do this, set up a cron that runs every minute that triggers the following command php artisan schedule:run.
+Verify your php executable location and replace it accordingly in the below command.
 
 Create a new `/etc/cron.d/faveo` file with:
 
@@ -276,9 +275,9 @@ echo "* * * * * apache /bin/php /var/www/faveo/artisan schedule:run 2>&1" | sudo
 
 <a id="7redis-installation" name="7redis-installation"></a>
 
-### <strong>7.Redis Installation</strong>
+### <strong>7. Redis Installation</strong>
 
-Redis is an open-source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
+Redis is an open-source (BSD licensed), in-memory data structure store, used as a database, cache, and message broker.
 
 This is an optional step and will improve system performance and is highly recommended.
 
@@ -286,11 +285,11 @@ This is an optional step and will improve system performance and is highly recom
 
 <a id="8ssl-installation" name="8ssl-installation"></a>
 
-### <strong>8.SSL Installation</strong>
+### <strong>8. SSL Installation</strong>
 
 Secure Sockets Layer (SSL) is a standard security technology for establishing an encrypted link between a server and a client. Let's Encrypt is a free, automated, and open certificate authority.
 
-Faveo Requires HTTPS so the SSL is a must to work with the latest versions of faveo, so for the internal network and if there is no domain for free you can use the Self-Signed-SSL.
+Faveo Requires HTTPS so SSL is a must to work with the latest versions of faveo, so for the internal network and if there is no domain for free you can use the Self-Signed-SSL.
 
 [Let’s Encrypt SSL installation documentation](/docs/installation/providers/enterprise/centos8s-apache-ssl)
 
@@ -298,14 +297,14 @@ Faveo Requires HTTPS so the SSL is a must to work with the latest versions of fa
 
 <a id="9install-faveo" name="9install-faveo"></a>
 
-### <strong>9.Install Faveo</strong>
+### <strong>9. Install Faveo</strong>
 
-At this point if the domainname is propagated properly with your server's IP you can open Faveo in browser just by entering your domainname.
+At this point, if the domainname is propagated properly with your server's IP you can open Faveo in a browser just by entering your domainname.
 You can also check the Propagation update by Visiting this site www.whatsmydns.net.
 
 Now you can install Faveo via [GUI](/docs/installation/installer/gui) Wizard or [CLI](/docs/installation/installer/cli).
 
 <a id="10final-step" name="10final-step"></a>
 
-###  <strong>10.Final step</strong>
+###  <strong>10. Final step</strong>
 The final step is to have fun with your newly created instance, which should be up and running to `http://localhost` or the domain you have configured Faveo with.
