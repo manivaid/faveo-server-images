@@ -14,16 +14,16 @@ toc: true
 Faveo can run on [CentOS-8-Stream ](https://www.centos.org/download/).
 
 - [<strong>Installation steps:</strong>](#installation-steps)
-    - [<strong>1.LAMP Installation</strong>](#1lamp-installation)
-    - [<strong>2.Update your Packages and install some utility tools</strong>](#2update-your-packages-and-install-some-utility-tools)
-    - [<strong>3.Upload Faveo</strong>](#3upload-faveo)
-    - [<strong>4.Setup the database</strong>](#4setup-the-database)
-    - [<strong>5.Configure Apache webserver</strong>](#5configure-apache-webserver)
-    - [<strong>6.Configure cron job</strong>](#6configure-cron-job)
-    - [<strong>7.Redis Installation</strong>](#7redis-installation)
-    - [<strong>8.SSL Installation</strong>](#8ssl-installation)
-    - [<strong>9.Install Faveo</strong>](#9install-faveo)
-    - [<strong>10.Final step</strong>](#10final-step)
+    - [<strong>1. LAMP Installation</strong>](#1lamp-installation)
+    - [<strong>2. Update your Packages and install some utility tools</strong>](#2update-your-packages-and-install-some-utility-tools)
+    - [<strong>3. Upload Faveo</strong>](#3upload-faveo)
+    - [<strong>4. Setup the database</strong>](#4setup-the-database)
+    - [<strong>5. Configure Apache webserver</strong>](#5configure-apache-webserver)
+    - [<strong>6. Configure cron job</strong>](#6configure-cron-job)
+    - [<strong>7. Redis Installation</strong>](#7redis-installation)
+    - [<strong>8. SSL Installation</strong>](#8ssl-installation)
+    - [<strong>9. Install Faveo</strong>](#9install-faveo)
+    - [<strong>10. Final step</strong>](#10final-step)
 
 
 
@@ -35,20 +35,20 @@ Faveo can run on [CentOS-8-Stream ](https://www.centos.org/download/).
 Faveo depends on the following:
 
 -   **Apache** (with mod_rewrite enabled) 
--   **PHP 7.3+** with the following extensions: curl, dom, gd, json, mbstring, openssl, pdo_mysql, tokenizer, zip
+-   **PHP 7.3+** with the following extensions: curl, dom, gd, JSON, mbstring, OpenSSL, pdo_mysql, tokenizer, zip
 -   **MySQL 8.0+** or **MariaDB 10.6+**
--   **SSL** ,Trusted CA Signed or Slef-Signed SSL
+-   **SSL** - Trusted CA Signed or Self-Signed SSL
 
 <a id="1lamp-installation" name="1lamp-installation"></a>
 
 ### <strong>1.LAMP Installation</strong>
 
 Follow the [instructions here](https://github.com/teddysun/lamp)
-If you follow this step, no need to install Apache, PHP, MySQL separetely as listed below
+If you follow this step, no need to install Apache, PHP, or MySQL separately as listed below:
 
 <a id="2update-your-packages-and-install-some-utility-tools" name="2update-your-packages-and-install-some-utility-tools"></a>
 
-### <strong>2.Update your Packages and install some utility tools</strong>
+### <strong>2. Update your Packages and install some utility tools</strong>
 
 Login as root user by typing the command below
 
